@@ -47,6 +47,7 @@ namespace Utilites.Config
         public void Load(string filename = null)
         {
             filename = GetFilePath(filename);
+            if (!File.Exists(filename)) return;
             string source = File.ReadAllText(filename);
             _elements = JsonConvert.DeserializeObject<Dictionary<string, object>>(source, Settings);
         }
