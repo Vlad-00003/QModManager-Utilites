@@ -1,0 +1,11 @@
+{
+  "Id": "ExampleUsageOfUtilites",
+  "DisplayName": "ExampleUsageOfUtilites",
+  "Author": "Vlad-00003",
+  "Version": "1.0.0",
+  "Requires": [],
+  "Enable": true,
+  "AssemblyName": "ExampleUsageOfUtilites.dll",
+  "EntryMethod": "ExampleUsageOfUtilites.QPatch.Patch",
+  "Config": {}
+}

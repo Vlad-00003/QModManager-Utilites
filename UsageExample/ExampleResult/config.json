@@ -1,0 +1,37 @@
+{
+  "Custom dictionary example": {
+    "first entry of regular dictionary": {
+      "Name": "First entry of custom dictionary",
+      "Value": 6,
+      "FloatValue": 45.0
+    },
+    "Second key of regular dictionary": {
+      "Name": "Second entry of custom dictionary",
+      "Value": 8,
+      "FloatValue": 9.4
+    }
+  },
+  "Custom list example": [
+    {
+      "Name": "First custom list value",
+      "Value": 12,
+      "FloatValue": 67.5
+    },
+    {
+      "Name": "Second custom list value",
+      "Value": 64,
+      "FloatValue": 12.1
+    }
+  ],
+  "First option": "First Value",
+  "Regular dictionary example": {
+    "first entry of regular dictionary": 1.0,
+    "Second key of regular dictionary": 2.0
+  },
+  "Regular list example": [
+    "first list value",
+    "Second list value"
+  ],
+  "Second option": 42,
+  "Third option": 0.73
+}

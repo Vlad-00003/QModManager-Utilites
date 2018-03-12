@@ -1,0 +1,58 @@
+5:42 AM [ExampleUsageOfUtilites] [Warning] Beggining first test. First way of handling config.
+5:42 AM [ExampleUsageOfUtilites] [Info] First option: First Value
+5:42 AM [ExampleUsageOfUtilites] [Info] Second option: 42
+5:42 AM [ExampleUsageOfUtilites] [Info] Second option: 0.73
+5:42 AM [ExampleUsageOfUtilites] [Info] Regular list values:
+	first list value
+	Second list value
+5:42 AM [ExampleUsageOfUtilites] [Info] Custom list values:
+	Name: First custom list value
+	Value = 12
+	FloatValue = 67.5
+	Name: Second custom list value
+	Value = 64
+	FloatValue = 12.1
+5:42 AM [ExampleUsageOfUtilites] [Info] Regular dictionary values: 
+	first entry of regular dictionary: 1
+	Second key of regular dictionary: 2
+5:42 AM [ExampleUsageOfUtilites] [Info] Custom dictionary values: 
+	first entry of regular dictionary:
+		Name: First entry of custom dictionary
+		Value = 6
+		FloatValue = 45
+	Second key of regular dictionary:
+		Name: Second entry of custom dictionary
+		Value = 8
+		FloatValue = 9.4
+5:42 AM [ExampleUsageOfUtilites] [Warning] End of the first test.
+5:42 AM [ExampleUsageOfUtilites] [Warning] Beggining second test. Second way of handling config.
+5:42 AM [ExampleUsageOfUtilites] [Debug] First value: Hey!
+5:42 AM [ExampleUsageOfUtilites] [Debug] Second value: 99
+5:42 AM [ExampleUsageOfUtilites] [Debug] SomeFloats: 0.003
+5:42 AM [ExampleUsageOfUtilites] [Debug] SomeDouble: 1.2
+5:42 AM [ExampleUsageOfUtilites] [Debug] Regular list values:
+	How
+	are
+	you
+	?
+5:42 AM [ExampleUsageOfUtilites] [Debug] Custom list values:
+	Name: First
+	Count = 120
+	Timer = 0
+	Name: Second
+	Count = 119
+	Timer = 0
+5:42 AM [ExampleUsageOfUtilites] [Debug] Regular dictionary values: 
+	Entry one: 16
+	Another key: 1201
+5:42 AM [ExampleUsageOfUtilites] [Debug] Custom dictionary values: 
+	First custom class:
+		Name: Player 1
+		Count = 65
+		Timer = 100
+	Second custom class:
+		Name: Player 2
+		Count = 1
+		Timer = 199
+5:42 AM [ExampleUsageOfUtilites] [Debug] Changing first value to "Weeeee"
+5:42 AM [ExampleUsageOfUtilites] [Warning] End of the second test.

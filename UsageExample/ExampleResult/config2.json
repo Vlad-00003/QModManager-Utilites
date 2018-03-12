@@ -1,0 +1,40 @@
+{
+  "First value of config": "Weeeee",
+  "Second value of the config": 99,
+  "Some floats to the config. Everybody loves them, right?": 0.003,
+  "And ofc some doubles": 1.2,
+  "Example of the list that contains regular values": [
+    "How",
+    "are",
+    "you",
+    "?"
+  ],
+  "Example of the list that contains custom classes": [
+    {
+      "Name of this custom class": "First",
+      "Count of something": 120,
+      "And timer. Why not?": 0.0
+    },
+    {
+      "Name of this custom class": "Second",
+      "Count of something": 119,
+      "And timer. Why not?": 0.0
+    }
+  ],
+  "Example of the dictionary that contains regular classes": {
+    "Entry one": 16,
+    "Another key": 1201
+  },
+  "Example of the dictionary that contains custom classes": {
+    "First custom class": {
+      "Name of this custom class": "Player 1",
+      "Count of something": 65,
+      "And timer. Why not?": 100.0
+    },
+    "Second custom class": {
+      "Name of this custom class": "Player 2",
+      "Count of something": 1,
+      "And timer. Why not?": 199.0
+    }
+  }
+}
