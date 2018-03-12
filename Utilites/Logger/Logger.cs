@@ -100,7 +100,7 @@ namespace Utilites.Logger
         /// <param name="type"></param>
         public static void Log(object text, LogType type = LogType.Custom) => Info(text, type);
 
-        private static void Log(string text, LogLevel level, LogType type, string caller)
+        internal static void Log(string text, LogLevel level, LogType type, string caller)
         {
             switch (type)
             {

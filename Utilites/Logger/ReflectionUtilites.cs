@@ -31,32 +31,33 @@ namespace Utilites.Logger
         /// Log all the fileds existing in class as the debug messages in the desired location
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="logtype"></param>
-        public static void LogAllFields(this Type type, LogType logtype = LogType.Custom)
+        /// <param name="logType"></param>
+        public static void LogAllFields(this Type type, LogType logType = LogType.Custom)
         {
-            Logger.Debug("Logging all Fields",logtype);
+            var caller = Assembly.GetCallingAssembly().GetName().Name;
+            Logger.Log("Logging all Fields",LogLevel.Debug,logType, caller);
             foreach (var info in type.GetAllFields())
-                Log(info, logtype);
-            Logger.Debug("End of Fields", logtype);
+                Logger.Log($"Field: \"{info}\"\n{info?.Attributes}", LogLevel.Debug, logType, caller);
+            Logger.Log("End of Fields", LogLevel.Debug, logType, caller);
         }
 
         /// <summary>
         /// Log FieldInfo as the debug message in the desired location
         /// </summary>
         /// <param name="info"></param>
-        /// <param name="type"></param>
-        public static void Log(this FieldInfo info, LogType type = LogType.Custom) =>
-            Logger.Debug($"Field: \"{info}\"\n{info?.Attributes}", type);
+        /// <param name="logType"></param>
+        public static void Log(this FieldInfo info, LogType logType = LogType.Custom) =>
+            Logger.Log($"Field: \"{info}\"\n{info?.Attributes}", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
         /// Log FieldInfo and the value it has on instance as the debug messages in the desired location
         /// </summary>
         /// <param name="info"></param>
         /// <param name="instance"></param>
-        /// <param name="type"></param>
-        public static void Log(this FieldInfo info, object instance, LogType type = LogType.Custom)
+        /// <param name="logType"></param>
+        public static void Log(this FieldInfo info, object instance, LogType logType = LogType.Custom)
         {
-            Logger.Debug($"Field: \"{info}\". Value: \"{info?.GetValue(instance)}\"\n{info?.Attributes}", type);
+            Logger.Log($"Field: \"{info}\". Value: \"{info?.GetValue(instance)}\"\n{info?.Attributes}", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
         }
         #endregion
 
@@ -74,22 +75,23 @@ namespace Utilites.Logger
         /// Logs all methods as the debug messages in the desired location
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="logtype"></param>
-        public static void LogAllMethods(this Type type, LogType logtype = LogType.Custom)
+        /// <param name="logType"></param>
+        public static void LogAllMethods(this Type type, LogType logType = LogType.Custom)
         {
-            Logger.Debug("Logging all Methods", logtype);
+            var caller = Assembly.GetCallingAssembly().GetName().Name;
+            Logger.Log("Logging all Methods", LogLevel.Debug, logType, caller);
             foreach (var info in type.GetAllMethods())
-                Log(info, logtype);
-            Logger.Debug("End of Methods", logtype);
+                Logger.Log($"Methods: \"{info}\"\n{info?.Attributes}", LogLevel.Debug, logType, caller);
+            Logger.Log("End of Methods", LogLevel.Debug, logType, caller);
         }
 
         /// <summary>
         /// Log MethodInfo as the debug message in the desired location
         /// </summary>
         /// <param name="info"></param>
-        /// <param name="logtype"></param>
-        public static void Log(this MethodInfo info, LogType logtype = LogType.Custom) =>
-            Logger.Debug($"Method: \"{info}\"\n\"{info?.Attributes}\"", logtype);
+        /// <param name="logType"></param>
+        public static void Log(this MethodInfo info, LogType logType = LogType.Custom) =>
+            Logger.Log($"Method: \"{info}\"\n{info?.Attributes}", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
 
         #endregion
 
@@ -107,22 +109,23 @@ namespace Utilites.Logger
         /// Log all constructos of class as the debug messages in the desired location
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="logtype"></param>
-        public static void LogAllConstructors(this Type type, LogType logtype = LogType.Custom)
+        /// <param name="logType"></param>
+        public static void LogAllConstructors(this Type type, LogType logType = LogType.Custom)
         {
-            Logger.Debug("Logging all Constructors", logtype);
+            var caller = Assembly.GetCallingAssembly().GetName().Name;
+            Logger.Log("Logging all Constructors", LogLevel.Debug, logType, caller);
             foreach (var info in type.GetAllConstructors())
-                Log(info, logtype);
-            Logger.Debug("End of Constructors", logtype);
+                Logger.Log($"Constructor: \"{info}\"\n{info?.Attributes}", LogLevel.Debug, logType, caller);
+            Logger.Log("End of Constructors", LogLevel.Debug, logType, caller);
         }
 
         /// <summary>
         /// Log ConstructorInfo as the debug message in the desired location
         /// </summary>
         /// <param name="info"></param>
-        /// <param name="type"></param>
-        public static void Log(this ConstructorInfo info, LogType type = LogType.Custom) =>
-            Logger.Debug($"Constructor: {info}\n{info?.Attributes}",type);
+        /// <param name="logType"></param>
+        public static void Log(this ConstructorInfo info, LogType logType = LogType.Custom) =>
+            Logger.Log($"Constructors \"{info}\"\n{info?.Attributes}", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
         #endregion
     }
 }
