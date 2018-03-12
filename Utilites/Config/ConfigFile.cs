@@ -248,10 +248,11 @@ namespace Utilites.Config
         /// <summary>
         /// Tries to read object of type T from the config file. If it doesnt' exists creates the new one with the default object of type T.
         /// </summary>
+        /// <param name="defaultValue"></param>
         /// <param name="filename"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T ReadObject<T>(string filename = null)
+        public T ReadObject<T>(T defaultValue, string filename = null)
         {
             filename = GetFilePath(filename);
             T customObject;
@@ -262,7 +263,10 @@ namespace Utilites.Config
             }
             else
             {
-                customObject = Activator.CreateInstance<T>();
+                if (defaultValue != null)
+                    customObject = defaultValue;
+                else
+                    customObject = Activator.CreateInstance<T>();
                 WriteObject(customObject);
             }
             return customObject;
