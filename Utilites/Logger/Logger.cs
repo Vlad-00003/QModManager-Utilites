@@ -67,7 +67,7 @@ namespace Utilites.Logger
         /// <param name="text"></param>
         /// <param name="type"></param>
         public static void Debug(object text, LogType type = LogType.Custom) =>
-            Log(text.ToString(), LogLevel.Debug, type);
+            Log(text.ToString(), LogLevel.Debug, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
         /// Creates [Error] prefixes message in the desired location
@@ -75,7 +75,7 @@ namespace Utilites.Logger
         /// <param name="text"></param>
         /// <param name="type"></param>
         public static void Error(object text, LogType type = LogType.Custom) =>
-            Log(text.ToString(), LogLevel.Error, type);
+            Log(text.ToString(), LogLevel.Error, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
         /// Creates [Info] prefixed message in the desired loaction
@@ -83,7 +83,7 @@ namespace Utilites.Logger
         /// <param name="text"></param>
         /// <param name="type"></param>
         public static void Info(object text, LogType type = LogType.Custom) =>
-            Log(text.ToString(), LogLevel.Info, type);
+            Log(text.ToString(), LogLevel.Info, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
         /// Creates [Warning] prefixed message in the desired location
@@ -91,7 +91,7 @@ namespace Utilites.Logger
         /// <param name="text"></param>
         /// <param name="type"></param>
         public static void Warning(object text, LogType type = LogType.Custom) =>
-            Log(text.ToString(), LogLevel.Warning, type);
+            Log(text.ToString(), LogLevel.Warning, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
         /// Creates [Info] prefixed message in the desired loaction
@@ -100,9 +100,8 @@ namespace Utilites.Logger
         /// <param name="type"></param>
         public static void Log(object text, LogType type = LogType.Custom) => Info(text, type);
 
-        private static void Log(string text, LogLevel level, LogType type)
+        private static void Log(string text, LogLevel level, LogType type, string caller)
         {
-            var caller = Assembly.GetCallingAssembly().GetName().Name;
             switch (type)
             {
                 case LogType.Harmony:
