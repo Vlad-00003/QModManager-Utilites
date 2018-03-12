@@ -35,6 +35,17 @@ namespace Utilites.Config
         #endregion
 
         /// <summary>
+        /// Check if specified file exists. If filename is null checks the initial file.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public bool Exists(string filename = null)
+        {
+            var filepath = GetFilePath(filename);
+            return File.Exists(filepath);
+        }
+
+        /// <summary>
         /// Generic config file. Extension would be automaticly added to the filename.
         /// </summary>
         /// <param name="modname"></param>
@@ -55,7 +66,7 @@ namespace Utilites.Config
         public void Load(string filename = null)
         {
             var filepath = GetFilePath(filename);
-            if (!File.Exists(filepath)) return;
+            if (!Exists(filepath)) return;
             string source = File.ReadAllText(filepath);
             _elements = JsonConvert.DeserializeObject<Dictionary<string, object>>(source, Settings);
         }
@@ -244,7 +255,7 @@ namespace Utilites.Config
         {
             filename = GetFilePath(filename);
             T customObject;
-            if (File.Exists(filename))
+            if (Exists(filename))
             {
                 var source = File.ReadAllText(filename);
                 customObject = JsonConvert.DeserializeObject<T>(source, Settings);
