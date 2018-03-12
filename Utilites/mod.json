@@ -1,0 +1,12 @@
+{
+  "Id": "Utilites",
+  "DisplayName": "Utilites",
+  "Author": "Vlad-00003",
+  "Version": "1.0.0",
+  "Requires": [],
+  "Enable": true,
+  "Priority": "First",
+  "AssemblyName": "Utilites.dll",
+  "EntryMethod": "Utilites.QPatch.Patch",
+  "Config": {}
+}

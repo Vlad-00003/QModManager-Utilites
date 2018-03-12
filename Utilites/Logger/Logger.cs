@@ -7,6 +7,9 @@ using Harmony;
 namespace Utilites.Logger
 {
     #region Log levels and types.
+    /// <summary>
+    /// Determinies the type of the log. Currently this is nothig but a prefix before the message.
+    /// </summary>
     public enum LogLevel
     {
         /// <summary>
@@ -27,6 +30,9 @@ namespace Utilites.Logger
         Debug
     }
 
+    /// <summary>
+    /// Determines where the log would be stored
+    /// </summary>
     public enum LogType
     {
         /// <summary>
@@ -48,22 +54,50 @@ namespace Utilites.Logger
     }
     #endregion
 
+    /// <summary>
+    /// Main class that allows you to log anything way simplier
+    /// </summary>
     public static class Logger
     {
         private static readonly string Logpath = Environment.CurrentDirectory + @"\QMods\{0}\log.txt";
 
+        /// <summary>
+        /// Created [Debug] prefixed message in the desired location
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="type"></param>
         public static void Debug(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Debug, type);
 
+        /// <summary>
+        /// Creates [Error] prefixes message in the desired location
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="type"></param>
         public static void Error(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Error, type);
 
+        /// <summary>
+        /// Creates [Info] prefixed message in the desired loaction
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="type"></param>
         public static void Info(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Info, type);
 
+        /// <summary>
+        /// Creates [Warning] prefixed message in the desired location
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="type"></param>
         public static void Warning(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Warning, type);
 
+        /// <summary>
+        /// Creates [Info] prefixed message in the desired loaction
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="type"></param>
         public static void Log(object text, LogType type = LogType.Custom) => Info(text, type);
 
         private static void Log(string text, LogLevel level, LogType type)
@@ -87,6 +121,11 @@ namespace Utilites.Logger
         }
 
         #region Exceptions
+        /// <summary>
+        /// Logs the formatted exception as an error in the desired location
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="logtype"></param>
         public static void Log(this Exception e, LogType logtype = LogType.Custom) =>
             Debug(FormatException(e), logtype);
 
@@ -100,6 +139,11 @@ namespace Utilites.Logger
         #endregion
 
         #region Harmony
+        /// <summary>
+        /// Logs list of CodeInstruction as the debug message in the desired location
+        /// </summary>
+        /// <param name="instructions"></param>
+        /// <param name="logType"></param>
         public static void Log(this IEnumerable<CodeInstruction> instructions, LogType logType = LogType.Custom)
         {
             Debug($"Logging instuctions", logType);
@@ -111,6 +155,12 @@ namespace Utilites.Logger
             Debug($"End of instuctions log", logType);
         }
 
+        /// <summary>
+        /// Logs all patches applied to method
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="harmony"></param>
+        /// <param name="logType"></param>
         public static void LogPatches(this MethodBase method, HarmonyInstance harmony, LogType logType = LogType.Custom)
         {
             var patches = harmony.IsPatched(method);
@@ -148,6 +198,10 @@ namespace Utilites.Logger
             }
         }
 
+        /// <summary>
+        /// Clears custom log file.
+        /// </summary>
+        /// <param name="assemblyName"></param>
         public static void ClearCustomLog(string assemblyName)
         {
             var path = string.Format(Logpath, assemblyName);

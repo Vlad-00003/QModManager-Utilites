@@ -15,13 +15,21 @@ namespace Utilites.Config
     public class ConfigFile : IEnumerable<KeyValuePair<string,object>>
     {
         [JsonIgnore]
-        public string Filepath;
+        private readonly string _filepath;
         private Dictionary<string, object> _elements;
+        /// <summary>
+        /// Json setializer setting that would be used to save\load configs. You can add your won if you need to load custom classes
+        /// </summary>
+        [JsonIgnore]
         public JsonSerializerSettings Settings { get; set; }
+        [JsonIgnore]
         private readonly string _modname;
+        [JsonIgnore]
         private readonly string _configPath = Environment.CurrentDirectory + @"\QMods\{0}\{1}.json";
 
         #region IEnumerable
+
+        /// <inheritdoc />
         public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => _elements.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => _elements.GetEnumerator();
         #endregion
@@ -34,7 +42,7 @@ namespace Utilites.Config
         public ConfigFile(string modname,string filename)
         {
             _modname = modname;
-            Filepath = string.Format(_configPath,modname,filename);
+            _filepath = string.Format(_configPath,modname,filename);
             _elements = new Dictionary<string, object>();
             Settings = new JsonSerializerSettings();
             Settings.Converters.Add(new KeyValuesConverter());
@@ -46,9 +54,9 @@ namespace Utilites.Config
         /// <param name="filename"></param>
         public void Load(string filename = null)
         {
-            filename = GetFilePath(filename);
-            if (!File.Exists(filename)) return;
-            string source = File.ReadAllText(filename);
+            var filepath = GetFilePath(filename);
+            if (!File.Exists(filepath)) return;
+            string source = File.ReadAllText(filepath);
             _elements = JsonConvert.DeserializeObject<Dictionary<string, object>>(source, Settings);
         }
 
@@ -58,10 +66,10 @@ namespace Utilites.Config
         /// <param name="filename"></param>
         public void Save(string filename = null)
         {
-            filename = GetFilePath(filename);
-            var dir = GetDirectory(filename);
+            var filepath = GetFilePath(filename);
+            var dir = GetDirectory(filepath);
             if (dir != null && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            File.WriteAllText(filename, JsonConvert.SerializeObject(_elements,Formatting.Indented,Settings));
+            File.WriteAllText(filepath, JsonConvert.SerializeObject(_elements,Formatting.Indented,Settings));
         }
         /// <summary>
         /// Removes all entries from the config.
@@ -177,9 +185,27 @@ namespace Utilites.Config
             this[path] = variable;
             return true;
         }
+        /// <summary>
+        /// Tries to convert object to type of T
+        /// </summary>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T ConverValues<T>(object value) => (T) ConvertValue(value, typeof(T));
+        /// <summary>
+        /// Gets the value from the config stored at path, then tries to convert it to requested type of T
+        /// </summary>
+        /// <param name="path"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T Get<T>(params string[] path) => ConverValues<T>(Get(path));
 
+        /// <summary>
+        /// Tries to read object of type T from the config file. If it doesnt' exists creates the new one with the default object of type T.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T ReadObject<T>(string filename = null)
         {
             filename = GetFilePath(filename);
@@ -205,18 +231,18 @@ namespace Utilites.Config
         /// <param name="filename"></param>
         public void WriteObject<T>(T config, bool sync = false, string filename = null)
         {
-            filename = GetFilePath(filename);
-            var dir = GetDirectory(filename);
+            var filepath = GetFilePath(filename);
+            var dir = GetDirectory(filepath);
             if (dir != null && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
             var json = JsonConvert.SerializeObject(config, Formatting.Indented, Settings);
-            File.WriteAllText(filename, json);
+            File.WriteAllText(filepath, json);
             if (sync) _elements = JsonConvert.DeserializeObject<Dictionary<string, object>>(json, Settings);
         }
 
         #region Helpers
 
         private string GetFilePath(string filename = null) =>
-            filename == null ? Filepath : string.Format(_configPath, _modname, filename);
+            filename == null ? _filepath : string.Format(_configPath, _modname, filename);
 
         private static string GetDirectory(string path)
         {
