@@ -120,13 +120,14 @@ namespace Utilites.Logger
         }
 
         #region Exceptions
+
         /// <summary>
         /// Logs the formatted exception as an error in the desired location
         /// </summary>
         /// <param name="e"></param>
-        /// <param name="logtype"></param>
-        public static void Log(this Exception e, LogType logtype = LogType.Custom) =>
-            Debug(FormatException(e), logtype);
+        /// <param name="logType"></param>
+        public static void Log(this Exception e, LogType logType = LogType.Custom) =>
+            Log(FormatException(e), LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
 
         private static string FormatException(Exception e)
         {
@@ -145,13 +146,13 @@ namespace Utilites.Logger
         /// <param name="logType"></param>
         public static void Log(this IEnumerable<CodeInstruction> instructions, LogType logType = LogType.Custom)
         {
-            Debug($"Logging instuctions", logType);
+            Log($"Logging instuctions", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
             var codes = new List<CodeInstruction>(instructions);
             for (int i = 0; i < codes.Count; i++)
             {
-                Debug($"[{i}] {codes[i]}", logType);
+                Log($"[{i}] {codes[i]}", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
             }
-            Debug($"End of instuctions log", logType);
+            Log($"End of instuctions log", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
         }
 
         /// <summary>
@@ -162,28 +163,29 @@ namespace Utilites.Logger
         /// <param name="logType"></param>
         public static void LogPatches(this MethodBase method, HarmonyInstance harmony, LogType logType = LogType.Custom)
         {
+            var caller = Assembly.GetCallingAssembly().GetName().Name;
             var patches = harmony.IsPatched(method);
             if (patches == null)
             {
-                Debug($"Method \"{method}\" is not patched!", logType);
+                Log($"Method \"{method}\" is not patched!", LogLevel.Debug, logType, caller);
                 return;
             }
-            Debug("Logging Prefixes...", logType);
+            Log("Logging Prefixes...", LogLevel.Debug, logType, caller);
             foreach (var patch in patches.Prefixes)
             {
-                Debug($"Patch {patch.index}:\n\tOwner: {patch.owner}\n\tPatched method: {patch.patch}\n\tPriority: {patch.priority}\n\tBefore: {patch.before}\n\tAfter:{patch.after}", logType);
+                Log($"Patch {patch.index}:\n\tOwner: {patch.owner}\n\tPatched method: {patch.patch}\n\tPriority: {patch.priority}\n\tBefore: {patch.before}\n\tAfter:{patch.after}", LogLevel.Debug, logType,caller);
             }
-            Debug("Logging Postfixes...", logType);
+            Log("Logging Postfixes...", LogLevel.Debug, logType, caller);
             foreach (var patch in patches.Postfixes)
             {
-                Debug($"Patch {patch.index}:\n\tOwner: {patch.owner}\n\tPatched method: {patch.patch}\n\tPriority: {patch.priority}\n\tBefore: {patch.before}\n\tAfter:{patch.after}", logType);
+                Log($"Patch {patch.index}:\n\tOwner: {patch.owner}\n\tPatched method: {patch.patch}\n\tPriority: {patch.priority}\n\tBefore: {patch.before}\n\tAfter:{patch.after}", LogLevel.Debug, logType, caller);
             }
-            Debug("Loggind Transpilers...", logType);
+            Log("Loggind Transpilers...", LogLevel.Debug, logType, caller);
             foreach (var patch in patches.Transpilers)
             {
-                Debug($"Patch {patch.index}:\n\tOwner: {patch.owner}\n\tPatched method: {patch.patch}\n\tPriority: {patch.priority}\n\tBefore: {patch.before}\n\tAfter:{patch.after}", logType);
+                Log($"Patch {patch.index}:\n\tOwner: {patch.owner}\n\tPatched method: {patch.patch}\n\tPriority: {patch.priority}\n\tBefore: {patch.before}\n\tAfter:{patch.after}", LogLevel.Debug, logType, caller);
             }
-            Debug("Done!", logType);
+            Log("Done!", LogLevel.Debug, logType, caller);
         }
         #endregion
 
