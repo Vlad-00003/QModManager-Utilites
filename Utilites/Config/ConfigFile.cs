@@ -39,11 +39,8 @@ namespace Utilites.Config
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public bool Exists(string filename = null)
-        {
-            var filepath = GetFilePath(filename);
-            return File.Exists(filepath);
-        }
+        public bool Exists(string filename = null)=>File.Exists(GetFilePath(filename));
+        
 
         /// <summary>
         /// Generic config file. Extension would be automaticly added to the filename.
@@ -65,8 +62,8 @@ namespace Utilites.Config
         /// <param name="filename"></param>
         public void Load(string filename = null)
         {
+            if (!Exists(filename)) return;
             var filepath = GetFilePath(filename);
-            if (!Exists(filepath)) return;
             string source = File.ReadAllText(filepath);
             _elements = JsonConvert.DeserializeObject<Dictionary<string, object>>(source, Settings);
         }
@@ -254,20 +251,24 @@ namespace Utilites.Config
         /// <returns></returns>
         public T ReadObject<T>(T defaultValue, string filename = null)
         {
-            filename = GetFilePath(filename);
+            var filePath = GetFilePath(filename);
             T customObject;
             if (Exists(filename))
             {
-                var source = File.ReadAllText(filename);
+                var source = File.ReadAllText(filePath);
                 customObject = JsonConvert.DeserializeObject<T>(source, Settings);
             }
             else
             {
                 if (defaultValue != null)
+                {
                     customObject = defaultValue;
+                }
                 else
+                {
                     customObject = Activator.CreateInstance<T>();
-                WriteObject(customObject);
+                }
+                WriteObject(customObject,filename);
             }
             return customObject;
         }
@@ -276,9 +277,9 @@ namespace Utilites.Config
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="config"></param>
-        /// <param name="sync"></param>
         /// <param name="filename"></param>
-        public void WriteObject<T>(T config, bool sync = false, string filename = null)
+        /// <param name="sync"></param>
+        public void WriteObject<T>(T config, string filename = null, bool sync = false)
         {
             var filepath = GetFilePath(filename);
             var dir = GetDirectory(filepath);
