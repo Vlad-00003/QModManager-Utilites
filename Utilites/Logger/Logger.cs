@@ -45,7 +45,7 @@ namespace Utilites.Logger
         /// </summary>
         Custom = 1,
         /// <summary>
-        /// Print the information to the file "harmony.log.txt" located at the desktop.
+        /// Print the information to the file "harmony.log.txt" located at the desktop. Keep in mind - it's one file that can be accessed by any mod.
         /// </summary>
         Harmony = 2,
         /// <summary>
@@ -103,7 +103,8 @@ namespace Utilites.Logger
         /// </summary>
         /// <param name="text"></param>
         /// <param name="type"></param>
-        public static void Log(object text, LogType type = LogType.Custom) => Info(text, type);
+        public static void Log(object text, LogType type = LogType.Custom) =>
+            Log(text.ToString(), LogLevel.Info, type, Assembly.GetCallingAssembly().GetName().Name);
 
         internal static void Log(string text, LogLevel level, LogType type, string caller)
         {
@@ -114,7 +115,7 @@ namespace Utilites.Logger
                 FileLog.Log($"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
 
             if(type.Contains(LogType.Console))
-                Console.WriteLine($"[{caller}] [{level:f}] {text}]");
+                Console.WriteLine($"[{caller}] [{level:f}] {text}");
 
             if(type.Contains(LogType.PlayerScreen))
                 ErrorMessage.AddDebug($"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
