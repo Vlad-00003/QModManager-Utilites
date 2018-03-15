@@ -33,24 +33,29 @@ namespace Utilites.Logger
     /// <summary>
     /// Determines where the log would be stored
     /// </summary>
+    [Flags]
     public enum LogType
     {
         /// <summary>
+        /// Placeholder. If set - Custom LogType would be used
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Print the information to the custom logfile located in the mod folder.
         /// </summary>
-        Custom,
+        Custom = 1,
         /// <summary>
         /// Print the information to the file "harmony.log.txt" located at the desktop.
         /// </summary>
-        Harmony,
+        Harmony = 2,
         /// <summary>
         /// Print the information to the "output_log.txt".
         /// </summary>
-        Console,
+        Console = 4,
         /// <summary>
         /// Print the information on the player screen
         /// </summary>
-        PlayerScreen
+        PlayerScreen = 8
     }
     #endregion
 
@@ -102,21 +107,17 @@ namespace Utilites.Logger
 
         internal static void Log(string text, LogLevel level, LogType type, string caller)
         {
-            switch (type)
-            {
-                case LogType.Harmony:
-                    FileLog.Log($"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
-                    return;
-                case LogType.Console:
-                    Console.WriteLine($"[{caller}] [{level:f}] {text}]");
-                    return;
-                case LogType.PlayerScreen:
-                    ErrorMessage.AddDebug($"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
-                    return;
-                case LogType.Custom:
-                    AddToFile(caller,$"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
-                    return;
-            }
+            if (type.Contains(LogType.None) || type.Contains(LogType.Custom))
+                AddToFile(caller, $"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
+
+            if(type.Contains(LogType.Harmony))
+                FileLog.Log($"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
+
+            if(type.Contains(LogType.Console))
+                Console.WriteLine($"[{caller}] [{level:f}] {text}]");
+
+            if(type.Contains(LogType.PlayerScreen))
+                ErrorMessage.AddDebug($"{DateTime.Now.ToShortTimeString()} [{caller}] [{level:f}] {text}");
         }
 
         #region Exceptions
