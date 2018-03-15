@@ -202,10 +202,9 @@ namespace Utilites.Logger
         /// <summary>
         /// Clears custom log file.
         /// </summary>
-        /// <param name="assemblyName"></param>
-        public static void ClearCustomLog(string assemblyName)
+        public static void ClearCustomLog()
         {
-            var path = string.Format(Logpath, assemblyName);
+            var path = string.Format(Logpath, Assembly.GetCallingAssembly().GetName().Name);
             File.Delete(path);
         }
         #endregion
