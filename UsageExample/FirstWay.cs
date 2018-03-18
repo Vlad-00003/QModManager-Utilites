@@ -34,7 +34,7 @@ namespace ExampleUsageOfUtilites
         public static void Load()
         {
             //Creating ConfigFile
-            ConfigFile config = new ConfigFile(Assembly.GetExecutingAssembly().GetName().Name,"config");
+            ConfigFile config = new ConfigFile("config");
             //Load its data.
             config.Load();
             //Getting the config values, and also checking if the config was changed due to it.

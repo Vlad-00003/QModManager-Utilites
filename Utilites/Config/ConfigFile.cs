@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Oculus.Newtonsoft.Json;
 using Utilites.Logger;
 
@@ -45,12 +46,11 @@ namespace Utilites.Config
         /// <summary>
         /// Generic config file. Extension would be automaticly added to the filename.
         /// </summary>
-        /// <param name="modname"></param>
         /// <param name="filename"></param>
-        public ConfigFile(string modname,string filename)
+        public ConfigFile(string filename)
         {
-            _modname = modname;
-            _filepath = string.Format(_configPath,modname,filename);
+            _modname = Assembly.GetCallingAssembly().GetName().Name;
+            _filepath = string.Format(_configPath, _modname, filename);
             _elements = new Dictionary<string, object>();
             Settings = new JsonSerializerSettings();
             Settings.Converters.Add(new KeyValuesConverter());
@@ -185,7 +185,7 @@ namespace Utilites.Config
 
         private object ConvertCustomType(IDictionary dict, Type destinationType)
         {
-            var fields = destinationType.GetAllFields();
+            var fields = destinationType.GetAllFields().ToList();
             object inst;
             try
             {
@@ -260,6 +260,8 @@ namespace Utilites.Config
             }
             else
             {
+                // ReSharper disable once CompareNonConstrainedGenericWithNull
+                // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
                 if (defaultValue != null)
                 {
                     customObject = defaultValue;

@@ -1,10 +1,10 @@
 ﻿using System;
+﻿using Oculus.Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Oculus.Newtonsoft.Json;
 using Utilites.Config;
 using Utilites.Logger;
 
@@ -12,7 +12,7 @@ namespace ExampleUsageOfUtilites
 {
     public static class SecondWay
     {
-        private static ConfigFile _config = new ConfigFile(Assembly.GetExecutingAssembly().GetName().Name, "config2");
+        private static ConfigFile _config = new ConfigFile("config2");
         public static ModConfig Config;
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
         public class ModConfig

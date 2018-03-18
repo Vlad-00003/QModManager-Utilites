@@ -8,7 +8,7 @@ namespace ExampleUsageOfUtilites
     {
         public static void Patch()
         {
-            Logger.ClearCustomLog(Assembly.GetExecutingAssembly().GetName().Name);
+            Logger.ClearCustomLog();
             try
             {
                 Logger.Warning("Beggining first test. First way of handling config.");
