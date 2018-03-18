@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Harmony;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Harmony;
 
 namespace Utilites.Logger
 {

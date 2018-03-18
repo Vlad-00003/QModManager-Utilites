@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Utilites.Logger;
 
 namespace ExampleUsageOfUtilites

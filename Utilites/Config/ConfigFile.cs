@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Oculus.Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Oculus.Newtonsoft.Json;
 using Utilites.Logger;
 
 namespace Utilites.Config
