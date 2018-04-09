@@ -129,7 +129,7 @@ namespace Utilites.Logger
         /// <param name="e"></param>
         /// <param name="logType"></param>
         public static void Log(this Exception e, LogType logType = LogType.Custom) =>
-            Log(FormatException(e), LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
+            Log(FormatException(e), LogLevel.Error, logType, Assembly.GetCallingAssembly().GetName().Name);
 
         private static string FormatException(Exception e)
         {
