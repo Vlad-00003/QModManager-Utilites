@@ -83,7 +83,7 @@ namespace Utilites.Logger
             Log(text.ToString(), LogLevel.Error, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates [Info] prefixed message in the desired loaction
+        /// Creates [Info] prefixed message in the desired location
         /// </summary>
         /// <param name="text"></param>
         /// <param name="type"></param>
@@ -99,7 +99,7 @@ namespace Utilites.Logger
             Log(text.ToString(), LogLevel.Warning, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates [Info] prefixed message in the desired loaction
+        /// Creates [Info] prefixed message in the desired location
         /// </summary>
         /// <param name="text"></param>
         /// <param name="type"></param>
