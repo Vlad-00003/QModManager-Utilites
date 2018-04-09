@@ -31,7 +31,7 @@ namespace Utilites.Logger
     }
 
     /// <summary>
-    /// Determines where the log would be stored
+    /// Determines where the log would be stored. It is possible to speciy multiply locations using "|" as the seperator.
     /// </summary>
     [Flags]
     public enum LogType
