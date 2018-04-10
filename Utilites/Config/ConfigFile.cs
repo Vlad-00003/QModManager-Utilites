@@ -212,7 +212,7 @@ namespace Utilites.Config
         /// If the config was changed returns true, overwise it return false.
         /// </summary>
         /// <typeparam name="T">T</typeparam>
-        /// <param name="variable">Variable name</param>
+        /// <param name="variable">Variable</param>
         /// <param name="path">Config path</param>
         /// <returns></returns>
         public bool TryGet<T>(ref T variable, params string[] path)
