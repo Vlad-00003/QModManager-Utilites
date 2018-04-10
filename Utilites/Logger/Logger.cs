@@ -74,7 +74,7 @@ namespace Utilites.Logger
         private static readonly string Logpath = Environment.CurrentDirectory + @"\QMods\{0}\log.txt";
 
         /// <summary>
-        /// Created a [Debug] prefixed message in the desired location(s)
+        /// Created a [Debug] prefixed message in the desired location
         /// </summary>
         /// <param name="text">The text that should be logged</param>
         /// <param name="type">Where it should be logged</param>
@@ -82,7 +82,7 @@ namespace Utilites.Logger
             Log(text.ToString(), LogLevel.Debug, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates an [Error] prefixed message in the desired location(s)
+        /// Creates an [Error] prefixed message in the desired location
         /// </summary>
         /// <param name="text">The text that should be logged</param>
         /// <param name="type">Where it should be logged</param>
@@ -90,7 +90,7 @@ namespace Utilites.Logger
             Log(text.ToString(), LogLevel.Error, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates an [Info] prefixed message in the desired location(s)
+        /// Creates an [Info] prefixed message in the desired location
         /// </summary>
         /// <param name="text">The text that should be logged</param>
         /// <param name="type">Where it should be logged</param>
@@ -98,7 +98,7 @@ namespace Utilites.Logger
             Log(text.ToString(), LogLevel.Info, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates a [Warning] prefixed message in the desired location(s)
+        /// Creates a [Warning] prefixed message in the desired location
         /// </summary>
         /// <param name="text">The text that should be logged</param>
         /// <param name="type">Where it should be logged</param>
@@ -106,7 +106,7 @@ namespace Utilites.Logger
             Log(text.ToString(), LogLevel.Warning, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates an [Info] prefixed message in the desired location(s)
+        /// Creates an [Info] prefixed message in the desired location
         /// </summary>
         /// <param name="text">The text that should be logged</param>
         /// <param name="type">Where it should be logged</param>
