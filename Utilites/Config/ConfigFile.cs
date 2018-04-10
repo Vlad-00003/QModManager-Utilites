@@ -71,7 +71,7 @@ namespace Utilites.Config
         /// <summary>
         /// Saves the config from the specified file, or the initilized one.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">File name</param>
         public void Save(string filename = null)
         {
             var filepath = GetFilePath(filename);
@@ -207,13 +207,13 @@ namespace Utilites.Config
         }
 
         /// <summary>
-        /// Tries to get the value out of config. If it's persist - sets the value to the config one.
-        /// If it's not - Adds the provided value to the config.
-        /// If the config was changed returns true, overwise - false.
+        /// Tries to get a value out of config. If it exists it sets the value to the config one.
+        /// If it doesn't - Adds the provided value to the config.
+        /// If the config was changed returns true, overwise it return false.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="variable"></param>
-        /// <param name="path"></param>
+        /// <typeparam name="T">T</typeparam>
+        /// <param name="variable">Variable name</param>
+        /// <param name="path">Config path</param>
         /// <returns></returns>
         public bool TryGet<T>(ref T variable, params string[] path)
         {
@@ -275,7 +275,8 @@ namespace Utilites.Config
             return customObject;
         }
         /// <summary>
-        /// Saves the config to the specified file, or the initilized one. Sync determines if the config would get the data as well.
+        /// Saves the config to the specified file, or the initilized one.
+        /// Sync determines if the config should get the data as well.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="config"></param>
