@@ -8,30 +8,36 @@ namespace Utilites.Logger
 {
     #region Log levels and types.
     /// <summary>
-    /// Determinies the type of the log. Currently this is nothig but a prefix before the message.
+    /// Determinies the type of the log.
+    /// Currently this is nothig but a prefix before the message.
     /// </summary>
     public enum LogLevel
     {
         /// <summary>
+        /// [Info]
         /// Just an information message.
         /// </summary>
         Info,
         /// <summary>
-        /// Something goes wrong, but we can handle it.
+        /// [Warning]
+        /// Something went wrong, but we can handle it.
         /// </summary>
         Warning,
         /// <summary>
-        /// The error has occur.
+        /// [Error]
+        /// An error has occured.
         /// </summary>
         Error,
         /// <summary>
-        /// Debug messages that should be removed in the relized versions.
+        /// [Debug]
+        /// Debug messages that should be removed in published versions.
         /// </summary>
         Debug
     }
 
     /// <summary>
-    /// Determines where the log would be stored. It is possible to speciy multiply locations using "|" as the seperator.
+    /// Determines where the log should be stored.
+    /// It is possible to speciy multiply locations using "|" as the seperator.
     /// </summary>
     [Flags]
     public enum LogType
@@ -41,68 +47,69 @@ namespace Utilites.Logger
         /// </summary>
         None = 0,
         /// <summary>
-        /// Print the information to the custom logfile located in the mod folder.
+        /// Prints the information in a custom log file located in the mod folder.
         /// </summary>
         Custom = 1,
         /// <summary>
-        /// Print the information to the file "harmony.log.txt" located at the desktop. Keep in mind - it's one file that can be accessed by any mod.
+        /// Prints the information in the file "harmony.log.txt" located on the desktop.
+        /// Keep in mind - this file can be accessed by any mod
         /// </summary>
         Harmony = 2,
         /// <summary>
-        /// Print the information to the "output_log.txt".
+        /// Prints the information in "output_log.txt".
         /// </summary>
         Console = 4,
         /// <summary>
-        /// Print the information on the player screen
+        /// Prints the information on the player screen
         /// </summary>
         PlayerScreen = 8
     }
     #endregion
 
     /// <summary>
-    /// Main class that allows you to log anything way simplier
+    /// Main class that allows you to log anything
     /// </summary>
     public static class Logger
     {
         private static readonly string Logpath = Environment.CurrentDirectory + @"\QMods\{0}\log.txt";
 
         /// <summary>
-        /// Created [Debug] prefixed message in the desired location
+        /// Created a [Debug] prefixed message in the desired location(s)
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="type"></param>
+        /// <param name="text">The text that should be logged</param>
+        /// <param name="type">Where it should be logged</param>
         public static void Debug(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Debug, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates [Error] prefixes message in the desired location
+        /// Creates an [Error] prefixed message in the desired location(s)
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="type"></param>
+        /// <param name="text">The text that should be logged</param>
+        /// <param name="type">Where it should be logged</param>
         public static void Error(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Error, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates [Info] prefixed message in the desired location
+        /// Creates an [Info] prefixed message in the desired location(s)
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="type"></param>
+        /// <param name="text">The text that should be logged</param>
+        /// <param name="type">Where it should be logged</param>
         public static void Info(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Info, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates [Warning] prefixed message in the desired location
+        /// Creates a [Warning] prefixed message in the desired location(s)
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="type"></param>
+        /// <param name="text">The text that should be logged</param>
+        /// <param name="type">Where it should be logged</param>
         public static void Warning(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Warning, type, Assembly.GetCallingAssembly().GetName().Name);
 
         /// <summary>
-        /// Creates [Info] prefixed message in the desired location
+        /// Creates an [Info] prefixed message in the desired location(s)
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="type"></param>
+        /// <param name="text">The text that should be logged</param>
+        /// <param name="type">Where it should be logged</param>
         public static void Log(object text, LogType type = LogType.Custom) =>
             Log(text.ToString(), LogLevel.Info, type, Assembly.GetCallingAssembly().GetName().Name);
 
@@ -126,8 +133,8 @@ namespace Utilites.Logger
         /// <summary>
         /// Logs the formatted exception as an error in the desired location
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="logType"></param>
+        /// <param name="e">Exception</param>
+        /// <param name="logType">Where it should be logged</param>
         public static void Log(this Exception e, LogType logType = LogType.Custom) =>
             Log(FormatException(e), LogLevel.Error, logType, Assembly.GetCallingAssembly().GetName().Name);
 
@@ -144,8 +151,8 @@ namespace Utilites.Logger
         /// <summary>
         /// Logs list of CodeInstruction as the debug message in the desired location
         /// </summary>
-        /// <param name="instructions"></param>
-        /// <param name="logType"></param>
+        /// <param name="instructions">CodeInstruction list</param>
+        /// <param name="logType">Where it should be logged</param>
         public static void Log(this IEnumerable<CodeInstruction> instructions, LogType logType = LogType.Custom)
         {
             Log($"Logging instuctions", LogLevel.Debug, logType, Assembly.GetCallingAssembly().GetName().Name);
@@ -160,9 +167,9 @@ namespace Utilites.Logger
         /// <summary>
         /// Logs all patches applied to method
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="harmony"></param>
-        /// <param name="logType"></param>
+        /// <param name="method">Harmony method</param>
+        /// <param name="harmony">Harmony instance</param>
+        /// <param name="logType">Where it should be logged</param>
         public static void LogPatches(this MethodBase method, HarmonyInstance harmony, LogType logType = LogType.Custom)
         {
             var caller = Assembly.GetCallingAssembly().GetName().Name;
@@ -193,10 +200,11 @@ namespace Utilites.Logger
 
         #region Helpers
         /// <summary>
-        /// Checks if the enum containes value. This is .net 3.5 project, so there is no Enum.HasFlag =(
+        /// Checks if the enum containes value. 
+        /// This project is a .NET 3.5 one, so there is no Enum.HasFlag
         /// </summary>
-        /// <param name="keys"></param>
-        /// <param name="flag"></param>
+        /// <param name="keys">Keys</param>
+        /// <param name="flag">Flag</param>
         /// <returns></returns>
         public static bool Contains(this Enum keys, Enum flag)
         {
@@ -215,7 +223,7 @@ namespace Utilites.Logger
         }
 
         /// <summary>
-        /// Clears custom log file.
+        /// Clears the custom log file.
         /// </summary>
         public static void ClearCustomLog()
         {
